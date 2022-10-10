@@ -1,5 +1,4 @@
 *.fasl
 *~
-settings.lisp
 ichiran-cli
 ichiran-cli.exe
