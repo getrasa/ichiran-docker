@@ -25,7 +25,7 @@ RUN wget https://beta.quicklisp.org/quicklisp.lisp.asc
 RUN git clone https://gitlab.com/yamagoya/jmdictdb.git
 
 # Add sudo users user 'postgres' & 'ichiran'
-RUN useradd -m ichiran
+# RUN useradd -m ichiran
 RUN adduser postgres sudo
 RUN adduser ichiran sudo
 
@@ -41,9 +41,10 @@ RUN cd /root/quicklisp/local-projects/ && git clone https://github.com/getrasa/i
 
 # Run postgresql server, create database, load database dump, and build ichiran-cli
 RUN service postgresql start && \
-  sudo -u postgres psql -c "CREATE ROLE ichiran SUPERUSER LOGIN PASSWORD 'ichiran';" && \
-  sudo -u ichiran createdb -E 'UTF8' -l 'ja_JP.utf8' -T template0 ichiran-db && \
-  sudo -u ichiran pg_restore -C -d ichiran-db ichiran-230122.pgdump || true && \
+  # sudo -u postgres psql -c "CREATE ROLE ichiran SUPERUSER LOGIN PASSWORD 'ichiran';" && \
+  sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';" && \
+  sudo -u postgres createdb -E 'UTF8' -l 'ja_JP.utf8' -T template0 ichiran-db && \
+  sudo -u postgres pg_restore -C -d ichiran-db ichiran-230122.pgdump || true && \
   sbcl --eval '(load "~/quicklisp/setup.lisp")' --eval '(ql:quickload :ichiran)' --eval '(ichiran/mnt:add-errata)' --eval '(ichiran/test:run-all-tests)' --eval '(sb-ext:quit)' && \
   sbcl --eval '(load "~/quicklisp/setup.lisp")' --eval '(ql:quickload :ichiran/cli)' --eval '(ichiran/cli:build)' && \
   /root/quicklisp/local-projects/ichiran-docker/ichiran-cli "一覧は最高だぞ" && \
