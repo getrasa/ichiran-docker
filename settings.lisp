@@ -7,10 +7,10 @@
 
 (in-package #:ichiran/dict)
 
-(defparameter *jmdict-path* #p"~/dump/JMdict_e")
+(defparameter *jmdict-path* #p"/home/ubuntu/dump/JMdict_e")
 
-(defparameter *jmdict-data* #p"/jmdictdb/jmdictdb/data/")
+(defparameter *jmdict-data* #p"/home/ubuntu/jmdictdb/jmdictdb/data/")
 
 (in-package #:ichiran/kanji)
 
-(defparameter *kanjidic-path* #P"~/dump/kanjidic2.xml")
+(defparameter *kanjidic-path* #P"/home/ubuntu/dump/kanjidic2.xml")

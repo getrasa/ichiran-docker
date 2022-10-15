@@ -26,8 +26,8 @@ RUN git clone https://gitlab.com/yamagoya/jmdictdb.git
 
 # Add sudo users user 'postgres' & 'ichiran'
 # RUN useradd -m ichiran
+# RUN adduser ichiran sudo
 RUN adduser postgres sudo
-RUN adduser ichiran sudo
 
 # Set japanese locale
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
