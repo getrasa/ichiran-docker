@@ -33,7 +33,7 @@ RUN adduser postgres sudo
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 
 # Install quicklisp
-RUN gpg --verify quicklisp.lisp.asc quicklisp.lisp; exit 0
+RUN gpg --verify /quicklisp.lisp.asc /quicklisp.lisp; exit 0
 RUN sbcl --load /quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql:add-to-init-file)' --eval '(sb-ext:quit)'
 
 # Download ichiran
